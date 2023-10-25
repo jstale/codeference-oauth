@@ -1,0 +1,21 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="text-center">
+                <h1 class="display-4">Login</h1>
+        </div>
+    </div>
+    <div class="row">
+            <div class="card text-center" style="margin-bottom: 1rem;">
+                <div class="card-body">
+                    <p>Please sign in: </p>
+                    <a class="btn btn-primary" href=@($"https://accounts.google.com/o/oauth2/auth?client_id={ViewBag.ClientId}&redirect_uri={ViewBag.RedirectUrl}&scope={ViewBag.Scope}&response_type=code&state=foo")>
+                        <img src="/google-icon.png" height="40" width="40" style="background-color: white; margin-right: 30px;"/> Sign in with Google
+                    </a>
+                </div>
+            </div>
+    </div>
+</div>

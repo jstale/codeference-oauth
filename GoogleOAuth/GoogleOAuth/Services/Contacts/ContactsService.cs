@@ -30,7 +30,6 @@ public class ContactsService : IContactsService
 
             if (response.IsSuccessStatusCode)
             {
-                var responses = await response.Content.ReadAsStringAsync();
                 var responseContent = await response.Content.ReadFromJsonAsync<GetContactsResponse>();
                 Console.WriteLine(responseContent);
                 result = responseContent.Connections;

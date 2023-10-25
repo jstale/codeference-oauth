@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace GoogleOAuth.Services.Model;
+namespace GoogleOAuth.Services.OAuth.Model;
 
 public class OAuthTokenResponse
 {

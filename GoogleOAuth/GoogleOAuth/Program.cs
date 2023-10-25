@@ -1,9 +1,12 @@
 using GoogleOAuth.Services;
 using GoogleOAuth.Services.Contacts;
+using GoogleOAuth.Services.OAuth;
 using Microsoft.AspNetCore.Authentication.Negotiate;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.Configure<OAuthConfiguration>(
+    builder.Configuration.GetSection("OAuth"));
 
 builder.Services.AddScoped<IOAuthService, OAuthService>();
 builder.Services.AddScoped<IContactsService, ContactsService>();
@@ -11,14 +14,6 @@ builder.Services.AddScoped<IContactsService, ContactsService>();
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddAuthentication(NegotiateDefaults.AuthenticationScheme)
-    .AddNegotiate();
-
-builder.Services.AddAuthorization(options =>
-{
-    // By default, all incoming requests will be authorized according to the default policy.
-    options.FallbackPolicy = options.DefaultPolicy;
-});
 builder.Services.AddRazorPages();
 
 builder.Services.AddDistributedMemoryCache();
@@ -46,7 +41,6 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthorization();
 app.UseSession();
 
 app.MapControllerRoute(

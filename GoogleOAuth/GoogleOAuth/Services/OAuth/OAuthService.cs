@@ -1,11 +1,15 @@
-﻿using GoogleOAuth.Services.Model;
+﻿using GoogleOAuth.Services.OAuth.Model;
+using Microsoft.Extensions.Options;
 
-namespace GoogleOAuth.Services;
+namespace GoogleOAuth.Services.OAuth;
 
 public class OAuthService : IOAuthService
 {
-    public OAuthService()
+    private readonly OAuthConfiguration _oauthConfig;
+
+    public OAuthService(IOptions<OAuthConfiguration> configuration)
     {
+        _oauthConfig = configuration.Value;
     }
 
     private const string GrantType = "grant_type";
@@ -30,8 +34,8 @@ public class OAuthService : IOAuthService
             {
                 new KeyValuePair<string, string>(GrantType, AuthorizationCodeGrant),
                 new KeyValuePair<string, string>(Code, authorizationCode),
-                new KeyValuePair<string, string>(ClientId, "593055541422-f429rqnid3lsb5qnfanhhg4mrs7sidoi.apps.googleusercontent.com"),
-                new KeyValuePair<string, string>(ClientSecret, "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"),
+                new KeyValuePair<string, string>(ClientId, _oauthConfig.ClientId),
+                new KeyValuePair<string, string>(ClientSecret, _oauthConfig.ClientSecret),
                 new KeyValuePair<string, string>(RedirectUri, CallbackUrl)
             });
 

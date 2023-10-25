@@ -1,4 +1,4 @@
-namespace GoogleOAuth.Services;
+namespace GoogleOAuth.Services.OAuth;
 
 public interface IOAuthService
 {

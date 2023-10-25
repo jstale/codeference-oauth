@@ -1,16 +1,19 @@
 ﻿using GoogleOAuth.Services.Contacts;
 using GoogleOAuth.Services.Contacts.Model;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 
 namespace GoogleOAuth.Controllers;
 
 public class ContactsController : Controller
 {
     private readonly IContactsService _contactsService;
+    private readonly OAuthConfiguration _oauthConfig;
 
-    public ContactsController(IContactsService contactsService)
+    public ContactsController(IContactsService contactsService, IOptions<OAuthConfiguration> configuration)
     {
         _contactsService = contactsService;
+        _oauthConfig = configuration.Value;
     }
 
     // GET
@@ -22,6 +25,12 @@ public class ContactsController : Controller
         if (isAuthenticated)
         {
             await LoadContacts(accessToken);
+        }
+        else
+        {
+            ViewBag.ClientId = _oauthConfig.ClientId;
+            ViewBag.Scope = _oauthConfig.Scope;
+            ViewBag.RedirectUrl = _oauthConfig.RedirectUrl;
         }
 
         ViewBag.IsAuthenticated = isAuthenticated;
