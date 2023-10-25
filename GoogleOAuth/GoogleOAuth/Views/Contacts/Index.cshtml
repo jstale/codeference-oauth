@@ -1,0 +1,45 @@
+﻿@using GoogleOAuth.Services.Contacts.Model
+@{
+    ViewData["Title"] = "Contacts";
+}
+
+
+<div class="container">
+    <div class="row">
+        <div class="text-center">
+            <h1 class="display-4 mb-4">Contacts</h1>
+        </div>
+    </div>
+    <div class="row">
+        @if (!ViewBag.IsAuthenticated)
+        {
+            <div class="card text-center" style="margin-bottom: 1rem;">
+                <div class="card-body">
+                    <p>In order to view your contacts please connect us with your google account</p>
+                    <a class="btn btn-primary" href="https://accounts.google.com/o/oauth2/auth?client_id=593055541422-f429rqnid3lsb5qnfanhhg4mrs7sidoi.apps.googleusercontent.com&redirect_uri=http://localhost:5000/cb&scope=https://www.googleapis.com/auth/contacts&response_type=code&state=foo">
+                        CONNECT WITH GOOGLE
+                    </a>
+                </div>
+            </div>
+            
+        }
+        else
+        {
+            @foreach (Contact contact in (List<Contact>) @ViewBag.Contacts)
+            {
+                <div class="col-6 col-sm-6 col-md-4 col-lg-2">
+                    <div class="card text-center" style="margin-bottom: 1rem;">
+                        <img src="@(contact?.Photos.FirstOrDefault()?.Url?.Replace("=s100", "=s200") ?? "/person-icon.png")" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">@contact?.Names?.FirstOrDefault()?.DisplayName</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">@(contact?.Birthdays?.FirstOrDefault()?.Text ?? "-")</h6>
+                            <span>
+                                @contact?.EmailAddresses?.FirstOrDefault()?.Value
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>
