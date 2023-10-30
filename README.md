@@ -12,4 +12,4 @@
 3. Enable access to People API for your application by going to [https://console.developers.google.com/apis/api/people.googleapis.com/overview?project=**project-id**](https://console.developers.google.com/apis/api/people.googleapis.com/overview?project=project-id)
 
 ## Development 
-Create necessary controllers and services to fetch an OAuth token for the user. User that token to authenticate when accessing Google'saj
+Create necessary controllers and services to fetch an OAuth token for the user. User that token to authenticate when accessing Google's api
